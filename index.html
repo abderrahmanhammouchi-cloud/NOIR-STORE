@@ -1,1 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>NOIR — Fashion & Luxury</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#050505;
+    color:#fff;
+}
+
+header{
+    height:70px;
+    padding:0 7%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-bottom:1px solid #222;
+    background:#050505;
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:900;
+    letter-spacing:6px;
+}
+
+nav{
+    display:flex;
+    gap:25px;
+}
+
+nav a{
+    color:#aaa;
+    text-decoration:none;
+}
+
+nav a:hover{
+    color:#fff;
+}
+
+.cart{
+    border:0;
+    background:#fff;
+    color:#000;
+    padding:10px 17px;
+    border-radius:20px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.hero{
+    min-height:560px;
+    padding:90px 8%;
+    display:flex;
+    align-items:center;
+    background:
+    radial-gradient(circle at 75% 40%,#292929,#050505 60%);
+}
+
+.hero-content{
+    max-width:700px;
+}
+
+.eyebrow{
+    color:#777;
+    letter-spacing:5px;
+    font-size:12px;
+    margin-bottom:22px;
+}
+
+h1{
+    font-size:clamp(55px,10vw,105px);
+    line-height:.88;
+    letter-spacing:-6px;
+    margin-bottom:30px;
+}
+
+.hero p{
+    color:#aaa;
+    font-size:18px;
+    line-height:1.6;
+    max-width:540px;
+    margin-bottom:30px;
+}
+
+.shop-button{
+    display:inline-block;
+    padding:15px 26px;
+    background:#fff;
+    color:#000;
+    text-decoration:none;
+    border-radius:6px;
+    font-weight:bold;
+}
+
+.section{
+    padding:75px 8%;
+}
+
+.title{
+    font-size:34px;
+    margin-bottom:35px;
+}
+
+.categories{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:35px;
+}
+
+.category{
+    background:#111;
+    color:#fff;
+    border:1px solid #333;
+    padding:10px 18px;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+.category:hover{
+    background:#fff;
+    color:#000;
+}
+
+.products{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.card{
+    background:#0d0d0d;
+    border:1px solid #222;
+    border-radius:12px;
+    overflow:hidden;
+    transition:.25s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    border-color:#555;
+}
+
+.product-image{
+    height:220px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:65px;
+    background:linear-gradient(135deg,#222,#080808);
+}
+
+.product-info{
+    padding:18px;
+}
+
+.product-info h3{
+    margin-bottom:8px;
+}
+
+.product-info p{
+    color:#777;
+    font-size:14px;
+    margin-bottom:15px;
+}
+
+.price{
+    font-weight:bold;
+    font-size:18px;
+    margin-bottom:15px;
+}
+
+.add{
+    width:100%;
+    padding:11px;
+    border:0;
+    border-radius:6px;
+    background:#fff;
+    color:#000;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.add:hover{
+    background:#ddd;
+}
+
+footer{
+    border-top:1px solid #222;
+    padding:35px;
+    text-align:center;
+    color:#666;
+}
+
+@media(max-width:900px){
+
+    .products{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:600px){
+
+    nav{
+        display:none;
+    }
+
+    .products{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+NOIR
+</div>
+
+<nav>
+<a href="#shop">Shop</a>
+<a href="#categories">Categories</a>
+<a href="#about">About</a>
+</nav>
+
+<button class="cart" onclick="showCart()">
+Cart (<span id="cart-count">0</span>)
+</button>
+
+</header>
+
+
+<section class="hero">
+
+<div class="hero-content">
+
+<div class="eyebrow">
+FASHION • FRAGRANCE • JEWELLERY
+</div>
+
+<h1>
+WEAR<br>
+YOUR<br>
+NOIR.
+</h1>
+
+<p>
+Discover clothing, cologne, jewellery and luxury accessories
+designed to make a statement.
+</p>
+
+<a href="#shop" class="shop-button">
+SHOP NOW
+</a>
+
+</div>
+
+</section>
+
+
+<section class="section" id="shop">
+
+<h2 class="title">
+Featured Products
+</h2>
+
+
+<div class="categories" id="categories">
+
+<button class="category" onclick="filterProducts('all')">
+All
+</button>
+
+<button class="category" onclick="filterProducts('clothing')">
+Clothing
+</button>
+
+<button class="category" onclick="filterProducts('cologne')">
+Cologne
+</button>
+
+<button class="category" onclick="filterProducts('bracelets')">
+Bracelets
+</button>
+
+<button class="category" onclick="filterProducts('silver')">
+Silver
+</button>
+
+<button class="category" onclick="filterProducts('gold')">
+Gold
+</button>
+
+<button class="category" onclick="filterProducts('accessories')">
+Accessories
+</button>
+
+</div>
+
+
+<div class="products">
+
+
+<article class="card" data-category="clothing">
+
+<div class="product-image">
+👕
+</div>
+
+<div class="product-info">
+
+<h3>NOIR T-Shirt</h3>
+
+<p>
+Minimal everyday fashion.
+</p>
+
+<div class="price">
+€24.99
+</div>
+
+<button class="add"
+onclick="addToCart('NOIR T-Shirt',24.99)">
+ADD TO CART
+</button>
+
+</div>
+
+</article>
+
+
+
+<article class="card" data-category="cologne">
+
+<div class="product-image">
+🧴
+</div>
+
+<div class="product-info">
+
+<h3>NOIR Cologne</h3>
+
+<p>
+A bold and elegant fragrance.
+</p>
+
+<div class="price">
+€49.99
+</div>
+
+<button class="add"
+onclick="addToCart('NOIR Cologne',49.99)">
+ADD TO CART
+</button>
+
+</div>
+
+</article>
+
+
+
+<article class="card" data-category="bracelets">
+
+<div class="product-image">
+📿
+</div>
+
+<div class="product-info">
+
+<h3>NOIR Bracelet</h3>
+
+<p>
+A clean statement accessory.
+</p>
+
+<div class="price">
+€29.99
+</div>
+
+<button class="add"
+onclick="addToCart('NOIR Bracelet',29.99)">
+ADD TO CART
+</button>
+
+</div>
+
+</article>
+
+
+
+<article class="card" data-category="silver">
+
+<div class="product-image">
+🥈
+</div>
+
+<div class="product-info">
+
+<h3>Silver Chain</h3>
+
+<p>
+Classic silver jewellery.
+</p>
+
+<div class="price">
+€79.99
+</div>
+
+<button class="add"
+onclick="addToCart('Silver Chain',79.99)">
+ADD TO CART
+</button>
+
+</div>
+
+</article>
+
+
+
+<article class="card" data-category="gold">
+
+<div class="product-image">
+🥇
+</div>
+
+<div class="product-info">
+
+<h3>Gold Bracelet</h3>
+
+<p>
+A timeless luxury piece.
+</p>
+
+<div class="price">
+€149.99
+</div>
+
+<button class="add"
+onclick="addToCart('Gold Bracelet',149.99)">
+ADD TO CART
+</button>
+
+</div>
+
+</article>
+
+
+
+<article class="card" data-category="accessories">
+
+<div class="product-image">
+🕶️
+</div>
+
+<div class="product-info">
+
+<h3>NOIR Sunglasses</h3>
+
+<p>
+Modern everyday style.
+</p>
+
+<div class="price">
+€34.99
+</div>
+
+<button class="add"
+onclick="addToCart('NOIR Sunglasses',34.99)">
+ADD TO CART
+</button>
+
+</div>
+
+</article>
+
+
+
+<article class="card" data-category="clothing">
+
+<div class="product-image">
+👟
+</div>
+
+<div class="product-info">
+
+<h3>NOIR Sneakers</h3>
+
+<p>
+Clean streetwear design.
+</p>
+
+<div class="price">
+€69.99
+</div>
+
+<button class="add"
+onclick="addToCart('NOIR Sneakers',69.99)">
+ADD TO CART
+</button>
+
+</div>
+
+</article>
+
+
+
+<article class="card" data-category="accessories">
+
+<div class="product-image">
+👜
+</div>
+
+<div class="product-info">
+
+<h3>NOIR Bag</h3>
+
+<p>
+Simple luxury for everyday use.
+</p>
+
+<div class="price">
+€59.99
+</div>
+
+<button class="add"
+onclick="addToCart('NOIR Bag',59.99)">
+ADD TO CART
+</button>
+
+</div>
+
+</article>
+
+
+</div>
+
+</section>
+
+
+<section class="section" id="about">
+
+<h2 class="title">
+About NOIR
+</h2>
+
+<p style="color:#888;max-width:650px;line-height:1.7;">
+
+NOIR is a modern fashion and luxury marketplace
+bringing clothing, fragrances, jewellery and accessories
+together in one place.
+
+</p>
+
+</section>
+
+
+<footer>
+
+© 2026 NOIR — Fashion, Fragrance & Jewellery.
+
+</footer>
+
+
+<script>
+
+let cartItems = [];
+
+
+function addToCart(name,price){
+
+cartItems.push({
+name:name,
+price:price
+});
+
+document.getElementById("cart-count").textContent =
+cartItems.length;
+
+alert(name + " added to cart.");
+
+}
+
+
+function showCart(){
+
+if(cartItems.length === 0){
+
+alert("Your cart is empty.");
+
+return;
+
+}
+
+let total = 0;
+
+let message =
+"YOUR CART:\n\n";
+
+
+cartItems.forEach(function(item){
+
+message +=
+item.name +
+" — €" +
+item.price.toFixed(2) +
+"\n";
+
+total += item.price;
+
+});
+
+
+message +=
+"\nTOTAL: €" +
+total.toFixed(2);
+
+
+alert(message);
+
+}
+
+
+function filterProducts(category){
+
+const products =
+document.querySelectorAll(".card");
+
+
+products.forEach(function(product){
+
+if(
+category === "all" ||
+product.dataset.category === category
+){
+
+product.style.display = "block";
+
+}else{
+
+product.style.display = "none";
+
+}
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
