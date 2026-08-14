@@ -1,1 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOIR — Everything Store</title>
 
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #050505;
+    color: white;
+}
+
+header {
+    height: 70px;
+    padding: 0 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #222;
+    position: sticky;
+    top: 0;
+    background: rgba(5,5,5,0.95);
+    z-index: 10;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 5px;
+}
+
+nav {
+    display: flex;
+    gap: 25px;
+}
+
+nav a {
+    color: #aaa;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: white;
+}
+
+.cart {
+    background: white;
+    color: black;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.hero {
+    min-height: 520px;
+    padding: 80px 8%;
+    display: flex;
+    align-items: center;
+    background:
+        radial-gradient(circle at 75% 35%, #333, #111 30%, #050505 70%);
+}
+
+.hero-content {
+    max-width: 650px;
+}
+
+.eyebrow {
+    color: #777;
+    letter-spacing: 4px;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: clamp(55px, 9vw, 100px);
+    line-height: 0.9;
+    letter-spacing: -6px;
+    margin-bottom: 28px;
+}
+
+.hero p {
+    color: #aaa;
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 520px;
+    margin-bottom: 30px;
+}
+
+.shop-button {
+    display: inline-block;
+    background: white;
+    color: black;
+    text-decoration: none;
+    padding: 15px 25px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.section {
+    padding: 70px 8%;
+}
+
+.title {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.categories {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 35px;
+}
+
+.category {
+    background: #111;
+    color: white;
+    border: 1px solid #333;
+    padding: 10px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.category:hover {
+    background: white;
+    color: black;
+}
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: #0d0d0d;
+    border: 1px solid #222;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: 0.25s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #555;
+}
+
+.product-image {
+    height: 220px;
+    background: linear-gradient(135deg, #222, #080808);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 65px;
+}
+
+.product-info {
+    padding: 18px;
+}
+
+.product-info h3 {
+    margin-bottom: 7px;
+}
+
+.product-info p {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 14px;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.add {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    border-radius: 6px;
+    background: white;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.add:hover {
+    background: #ddd;
+}
+
+footer {
+    border-top: 1px solid #222;
+    padding: 35px;
+    text-align: center;
+    color: #666;
+}
+
+@media (max-width: 900px) {
+    .products {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    nav {
+        display: none;
+    }
+
+    .products {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        letter-spacing: -4px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">NOIR</div>
+
+    <nav>
+        <a href="#shop">Shop</a>
+        <a href="#categories">Categories</a>
+        <a href="#about">About</a>
+    </nav>
+
+    <button class="cart" onclick="showCart()">
+        Cart (<span id="cart-count">0</span>)
+    </button>
+</header>
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="eyebrow">
+            EVERYTHING. ONE PLACE.
+        </div>
+
+        <h1>
+            FIND<br>
+            YOUR<br>
+            NEXT.
+        </h1>
+
+        <p>
+            Discover tech, fashion, accessories, home essentials
+            and more — all in one place.
+        </p>
+
+        <a href="#shop" class="shop-button">
+            SHOP NOW
+        </a>
+
+    </div>
+
+</section>
+
+<section class="section" id="shop">
+
+    <h2 class="title">
+        Featured Products
+    </h2>
+
+    <div class="categories" id="categories">
+
+        <button class="category" onclick="filterProducts('all')">
+            All
+        </button>
+
+        <button class="category" onclick="filterProducts('tech')">
+            Tech
+        </button>
+
+        <button class="category" onclick="filterProducts('fashion')">
+            Fashion
+        </button>
+
+        <button class="category" onclick="filterProducts('home')">
+            Home
+        </button>
+
+        <button class="category" onclick="filterProducts('accessories')">
+            Accessories
+        </button>
+
+    </div>
+
+    <div class="products">
+
+        <article class="card" data-category="tech">
+            <div class="product-image">🎧</div>
+
+            <div class="product-info">
+                <h3>Wireless Headphones</h3>
+                <p>Immersive sound anywhere.</p>
+                <div class="price">€39.99</div>
+
+                <button class="add"
+                onclick="addToCart('Wireless Headphones',39.99)">
+                    ADD TO CART
+                </button>
+            </div>
+        </article>
+
+
+        <article class="card" data-category="fashion">
+            <div class="product-image">👕</div>
+
+            <div class="product-info">
+                <h3>NOIR T-Shirt</h3>
+                <p>Clean everyday streetwear.</p>
+                <div class="price">€24.99</div>
+
+                <button class="add"
+                onclick="addToCart('NOIR T-Shirt',24.99)">
+                    ADD TO CART
+                </button>
+            </div>
+        </article>
+
+
+        <article class="card" data-category="accessories">
+            <div class="product-image">⌚</div>
+
+            <div class="product-info">
+                <h3>Smart Watch</h3>
+                <p>Stay connected in style.</p>
+                <div class="price">€59.99</div>
+
+                <button class="add"
+                onclick="addToCart('Smart Watch',59.99)">
+                    ADD TO CART
+                </button>
+            </div>
+        </article>
+
+
+        <article class="card" data-category="home">
+            <div class="product-image">💡</div>
+
+            <div class="product-info">
+                <h3>LED Lamp</h3>
+                <p>Modern lighting for your room.</p>
+                <div class="price">€19.99</div>
+
+                <button class="add"
+                onclick="addToCart('LED Lamp',19.99)">
+                    ADD TO CART
+                </button>
+            </div>
+        </article>
+
+    </div>
+
+</section>
+
+
+<section class="section" id="about">
+
+    <h2 class="title">
+        Welcome to NOIR
+    </h2>
+
+    <p style="color:#888;max-width:650px;line-height:1.7;">
+        NOIR is your modern marketplace for products of all kinds.
+        From technology and fashion to accessories and home essentials,
+        discover something new every day.
+    </p>
+
+</section>
+
+
+<footer>
+    © 2026 NOIR — Everything in one place.
+</footer>
+
+
+<script>
+
+let cartItems = [];
+
+function addToCart(name, price) {
+
+    cartItems.push({
+        name: name,
+        price: price
+    });
+
+    document.getElementById("cart-count").textContent =
+        cartItems.length;
+
+    alert(name + " added to cart.");
+}
+
+
+function showCart() {
+
+    if (cartItems.length === 0) {
+
+        alert("Your cart is empty.");
+
+        return;
+    }
+
+    let total = 0;
+    let message = "YOUR CART:\\n\\n";
+
+    cartItems.forEach(function(item) {
+
+        message += item.name +
+            " — €" +
+            item.price.toFixed(2) +
+            "\\n";
+
+        total += item.price;
+    });
+
+    message +=
+        "\\nTOTAL: €" +
+        total.toFixed(2);
+
+    alert(message);
+}
+
+
+function filterProducts(category) {
+
+    const products =
+        document.querySelectorAll(".card");
+
+    products.forEach(function(product) {
+
+        if (
+            category === "all" ||
+            product.dataset.category === category
+        ) {
+
+            product.style.display = "block";
+
+        } else {
+
+            product.style.display = "none";
+
+        }
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>
